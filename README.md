@@ -26,8 +26,9 @@ Scissor is a URL shortening service built with Node.js and TypeScript. It allows
    git clone https://github.com/MichaelAbilawon/url_shortner.git
 
 2. Install Dependecies:
-   cd backend
-   npm install
+
+- cd backend
+- npm install
 
 3. Set up environment variables:
 
