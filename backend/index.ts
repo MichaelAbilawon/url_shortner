@@ -5,17 +5,23 @@ import mongoose from "mongoose";
 
 const app = express();
 
+// Load environment variables from .env file
+dotenv.config({ path: "./.env" });
 dotenv.config();
+
+// Allow cross-origin requests (for testing purposes)
+app.use(cors());
+
+// Connect to MongoDB database using Mongoose
 
 async function connectToDatabase() {
   try {
     await mongoose.connect(process.env.MONGO_URL as string);
-    console.log("Database is successfully connected");
+    console.log("Connected to Database");
   } catch (err) {
-    console.error("Connection to the database failed:", err);
+    console.error(`Error connecting to database: ${err}`);
   }
 }
-
 connectToDatabase();
 
 // Middleware and Routers
