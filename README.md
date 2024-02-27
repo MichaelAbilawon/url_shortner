@@ -34,6 +34,3 @@ Scissor is a URL shortening service built with Node.js and TypeScript. It allows
 
 - Create a '.env' file in the root directory
 - Define enviroment variablessuch as database connection string, API keys, etc.
-
-4. Run the application:
-   npm start
