@@ -29,7 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 // Routes
-
+app.use("/shortUrl", shortUrl);
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
