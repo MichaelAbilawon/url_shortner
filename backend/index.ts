@@ -2,8 +2,9 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
-import { connect } from "http2";
+// import { connect } from "http2";
 import shortUrl from "./routes/shortUrl";
+import cookieParser from "cookie-parser";
 
 const app = express();
 
@@ -23,6 +24,8 @@ connectToDatabase();
 
 // Middleware and Routers
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
 // Allow cross-origin requests (for testing purposes)

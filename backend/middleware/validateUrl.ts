@@ -1,7 +1,7 @@
 import validUrl from "valid-url";
 import { Request, Response, NextFunction } from "express";
 
-export const validateUrlMiddleware = (
+export const validateUrl = (
   req: Request,
   res: Response,
   next: NextFunction

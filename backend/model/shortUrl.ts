@@ -19,6 +19,16 @@ const shortUrlSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    clickData: [
+      {
+        timestamp: { type: Date, default: Date.now },
+        referrer: String,
+      },
+    ],
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
+    },
   },
   {
     timestamps: true,
