@@ -2,6 +2,7 @@ import express from "express";
 import { nanoid } from "nanoid";
 import { isUri } from "valid-url";
 import { urlModel } from "../model/shortUrl";
+import client from "../middleware/redis";
 
 export const createUrl = async (
   req: express.Request,
@@ -26,6 +27,28 @@ export const createUrl = async (
       }
     }
 
+    // Create the short URL
+    // const shortUrlData = {
+    //   fullUrl,
+    //   shortUrl: alias || nanoid().substring(0, 10),
+    // };
+    // const newShortUrl = await urlModel.create(shortUrlData);
+    // Check if shortened URL already exists in cache
+    const cachedURL = await client.get(alias);
+
+    if (!cachedURL) {
+      return res.json({
+        message: "URL already shortened",
+        shortUrlData: cachedURL,
+      });
+    } else {
+      //Store shortened URL with original URL in cache
+      await client.set(alias, req.body.fullUrl);
+
+      //Set expiration time for cached data (optional)
+      await client.expire(alias, 60 * 60); //Cache for 1 hour
+      // Create the short URL
+    }
     // Create the short URL
     const shortUrlData = {
       fullUrl,
@@ -63,24 +86,48 @@ export const getAllUrl = async (
 
 export const getUrl = async (req: express.Request, res: express.Response) => {
   try {
-    let shortUrl;
-    // Check if the provided parameter is a valid URL
-    if (isUri(req.params.id)) {
-      //If it is a valid URL, search for it by the full URL
-      shortUrl = await urlModel.findOne({ fullUrl: req.params.id });
-    } else {
-      //Otherwise, search for it by the short URL
-      shortUrl = await urlModel.findOne({ shortUrl: req.params.id });
-    }
+    // let shortUrl;
+    // // Check if the provided parameter is a valid URL
+    // if (isUri(req.params.id)) {
+    //   //If it is a valid URL, search for it by the full URL
 
-    if (!shortUrl) {
-      res.status(404).send({ message: "URL not Found!" });
+    //   shortUrl = await urlModel.findOne({ fullUrl: req.params.id });
+    // } else {
+    //   //Otherwise, search for it by the short URL
+    //   shortUrl = await urlModel.findOne({ shortUrl: req.params.id });
+    // }
+
+    // if (!shortUrl) {
+    //   res.status(404).send({ message: "URL not Found!" });
+    // } else {
+    //   // Increment the clicks counter and save the changes
+    //   shortUrl.clicks++;
+    //   await shortUrl.save();
+    //   //Redirect to the original URL
+    //   res.redirect(shortUrl.fullUrl);
+    // }
+    const shortUrl = req.params.id;
+
+    //Check if shortened URL already exists in cache
+    const originalUrl = await client.get(shortUrl);
+
+    if (originalUrl) {
+      // Update click count
+      await urlModel.findByIdAndUpdate({ shortUrl }, { $inc: { clicks: 1 } });
+      return res.redirect(originalUrl);
     } else {
-      // Increment the clicks counter and save the changes
-      shortUrl.clicks++;
-      await shortUrl.save();
-      //Redirect to the original URL
-      res.redirect(shortUrl.fullUrl);
+      const url = await urlModel.findById(shortUrl);
+      if (!url) {
+        return res.status(404).json({ message: "Short Url not found" });
+      }
+
+      //Store retrieved URL in cache
+      await client.set(shortUrl, url.fullUrl);
+
+      // Update click count
+      await urlModel.findByIdAndUpdate(shortUrl, { $inc: { clicks: 1 } });
+
+      return res.redirect(url.fullUrl);
     }
   } catch (error) {
     const err = error as Error;
