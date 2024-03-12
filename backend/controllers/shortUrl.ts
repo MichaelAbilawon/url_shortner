@@ -1,14 +1,34 @@
 import express from "express";
 import { nanoid } from "nanoid";
-import { isUri } from "valid-url";
 import { urlModel } from "../model/shortUrl";
-import client from "../middleware/redis";
+import client, { isConnected } from "../middleware/redis";
+
+// Optional: Define a function to reconnect to Redis with better logging and error handling
+async function reconnectToRedis() {
+  try {
+    await client.connect(); // Attempt reconnection
+    console.log("Reconnected to Redis successfully");
+  } catch (error) {
+    console.error("Error reconnecting to Redis:", error);
+    // Implement additional logic for handling reconnection failures (e.g., retry attempts with backoff)
+  }
+}
 
 export const createUrl = async (
   req: express.Request,
   res: express.Response
 ) => {
   try {
+    // Check Redis connection before proceeding (with potential reconnection)
+    if (!isConnected) {
+      console.warn(
+        "Redis connection not established, attempting reconnection..."
+      );
+      await reconnectToRedis();
+    } else {
+      console.info("Connection to Redis successfully established"); //Log successful connection
+    }
+
     const { fullUrl, alias } = req.body;
 
     // Check if the fullUrl already exists in the database
@@ -27,28 +47,22 @@ export const createUrl = async (
       }
     }
 
-    // Create the short URL
-    // const shortUrlData = {
-    //   fullUrl,
-    //   shortUrl: alias || nanoid().substring(0, 10),
-    // };
-    // const newShortUrl = await urlModel.create(shortUrlData);
     // Check if shortened URL already exists in cache
     const cachedURL = await client.get(alias);
 
-    if (!cachedURL) {
+    if (cachedURL) {
       return res.json({
         message: "URL already shortened",
         shortUrlData: cachedURL,
       });
     } else {
-      //Store shortened URL with original URL in cache
+      // Store shortened URL with original URL in cache
       await client.set(alias, req.body.fullUrl);
 
-      //Set expiration time for cached data (optional)
-      await client.expire(alias, 60 * 60); //Cache for 1 hour
-      // Create the short URL
+      // Set expiration time for cached data (optional)
+      await client.expire(alias, 60 * 60); // Cache for 1 hour
     }
+
     // Create the short URL
     const shortUrlData = {
       fullUrl,
@@ -59,9 +73,10 @@ export const createUrl = async (
     res.status(201).send(newShortUrl);
   } catch (error) {
     const err = error as Error;
+    console.error("Error creating short URL:", err); // Log detailed error with stack trace
     res
       .status(500)
-      .send({ message: "Something went wrong!", error: err.toString() });
+      .send({ message: "Something went wrong!", error: err.message }); // Informative error message
   }
 };
 
@@ -113,7 +128,11 @@ export const getUrl = async (req: express.Request, res: express.Response) => {
 
     if (originalUrl) {
       // Update click count
-      await urlModel.findByIdAndUpdate({ shortUrl }, { $inc: { clicks: 1 } });
+      await urlModel.findByIdAndUpdate(
+        originalUrl,
+        { shortUrl },
+        { $inc: { clicks: 1 } }
+      );
       return res.redirect(originalUrl);
     } else {
       const url = await urlModel.findById(shortUrl);

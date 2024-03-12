@@ -13,7 +13,9 @@ interface userDocument extends Document {
 export async function loginUser(req: Request, res: Response): Promise<void> {
   try {
     console.log("Login request received");
+
     // Check if user exists
+
     const user: userDocument | null = await userModel.findOne({
       email: req.body.email,
     });
@@ -38,10 +40,11 @@ export async function loginUser(req: Request, res: Response): Promise<void> {
         );
         // Save the token to a cookie and send a response
         res.cookie("token", token, { httpOnly: true });
-        res.status(200).json({ message: "Login successful", token });
+        res.status(200).json({ message: "Login successful" });
+        console.log("Login successful🙂");
       }
     }
-  } catch (error) {
-    res.status(500).json({ error: "Server error" });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
   }
 }

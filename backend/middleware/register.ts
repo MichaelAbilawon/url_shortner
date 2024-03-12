@@ -43,3 +43,5 @@ export async function registerUser(
 router.post("/register", registerUser);
 
 export default router;
+
+import client from "../middleware/redis"; // Assuming client is your Redis connection
