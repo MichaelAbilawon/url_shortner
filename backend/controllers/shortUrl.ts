@@ -2,6 +2,7 @@ import express from "express";
 import { nanoid } from "nanoid";
 import { urlModel } from "../model/shortUrl";
 import client, { isConnected } from "../middleware/redis";
+import { historyModel } from "../model/linkHistory";
 
 // Optional: Define a function to reconnect to Redis with better logging and error handling
 async function reconnectToRedis() {
@@ -69,6 +70,13 @@ export const createUrl = async (
       shortUrl: alias || nanoid().substring(0, 10),
     };
     const newShortUrl = await urlModel.create(shortUrlData);
+    // Insert record into link history database
+    const linkHistoryData = {
+      originalUrl: fullUrl, // Assuming fullUrl represents the original URL
+      shortenedUrl: alias, // Assuming alias represents the shortened URL
+      userId: req.user?.id,
+    };
+    await historyModel.create(linkHistoryData);
 
     res.status(201).send(newShortUrl);
   } catch (error) {

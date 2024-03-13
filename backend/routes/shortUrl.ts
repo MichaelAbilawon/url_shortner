@@ -13,6 +13,7 @@ import register from "../middleware/register";
 import { loginUser } from "../middleware/login";
 import { verifyTokenFromCookie } from "../middleware/verifyToken";
 import limiter from "../middleware/rate";
+import { getLinkHistory } from "../middleware/history";
 const router = express.Router();
 
 router.post("/register", register); //register a new user
@@ -29,5 +30,5 @@ router.get("/shortUrl/:id", handleRedirect, getUrl); //Get all URLs
 router.delete("/shortUrl/:id", deleteUrl); // Delete a URL
 router.get("/generate-qr/:url", generateQrCodeController); //Generate QR-code
 router.get("/analytics/:id", analyticsMiddleware); //Analytics
-// router.get("/linkhistory", linkHistoryMiddleware);
+router.get("/linkhistory", verifyTokenFromCookie, getLinkHistory); //
 export default router;
