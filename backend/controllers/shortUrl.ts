@@ -49,7 +49,7 @@ export const createUrl = async (
     }
 
     // Check if shortened URL already exists in cache
-    const cachedURL = await client.get(alias);
+    const cachedURL = await client.get(fullUrl);
 
     if (cachedURL) {
       return res.json({
@@ -61,19 +61,22 @@ export const createUrl = async (
       await client.set(alias, req.body.fullUrl);
 
       // Set expiration time for cached data (optional)
-      await client.expire(alias, 60 * 60); // Cache for 1 hour
+      await client.expire(alias, 60 * 60 * 7); // Cache for 1 week
     }
 
     // Create the short URL
     const shortUrlData = {
       fullUrl,
       shortUrl: alias || nanoid().substring(0, 10),
+      user: req.user?.id,
+
+      // user,
     };
     const newShortUrl = await urlModel.create(shortUrlData);
     // Insert record into link history database
     const linkHistoryData = {
-      originalUrl: fullUrl, // Assuming fullUrl represents the original URL
-      shortenedUrl: alias, // Assuming alias represents the shortened URL
+      originalUrl: fullUrl,
+      shortenedUrl: alias,
       userId: req.user?.id,
     };
     await historyModel.create(linkHistoryData);
@@ -81,10 +84,10 @@ export const createUrl = async (
     res.status(201).send(newShortUrl);
   } catch (error) {
     const err = error as Error;
-    console.error("Error creating short URL:", err); // Log detailed error with stack trace
+    console.error("Error creating short URL:", err);
     res
       .status(500)
-      .send({ message: "Something went wrong!", error: err.message }); // Informative error message
+      .send({ message: "Something went wrong!", error: err.message });
   }
 };
 
@@ -107,52 +110,80 @@ export const getAllUrl = async (
   }
 };
 
+// export const getUrl = async (req: express.Request, res: express.Response) => {
+//   try {
+//     const shortUrl = req.params.id;
+
+//     //Check if shortened URL already exists in cache
+//     const originalUrl = await client.get(shortUrl);
+
+//     if (originalUrl) {
+//       // Update click count in cache
+//       await urlModel.findByIdAndUpdate(
+//         originalUrl,
+//         { shortUrl },
+//         { $inc: { clicks: 1 } }
+//       );
+//       return res.redirect(originalUrl);
+//     } else {
+//       const url = await urlModel.findById(shortUrl);
+//       if (!url) {
+//         return res.status(404).json({ message: "Short Url not found" });
+//       }
+
+//       //Store retrieved URL in cache
+//       await client.set(shortUrl, url.fullUrl);
+
+//       // Update click count
+//       await urlModel.findByIdAndUpdate(shortUrl, { $inc: { clicks: 1 } });
+
+//       return res.redirect(url.fullUrl);
+//     }
+//   } catch (error) {
+//     const err = error as Error;
+//     res
+//       .status(500)
+//       .send({ message: "Something went wrong!", error: err.toString() });
+//   }
+// };
+
 export const getUrl = async (req: express.Request, res: express.Response) => {
   try {
-    // let shortUrl;
-    // // Check if the provided parameter is a valid URL
-    // if (isUri(req.params.id)) {
-    //   //If it is a valid URL, search for it by the full URL
-
-    //   shortUrl = await urlModel.findOne({ fullUrl: req.params.id });
-    // } else {
-    //   //Otherwise, search for it by the short URL
-    //   shortUrl = await urlModel.findOne({ shortUrl: req.params.id });
-    // }
-
-    // if (!shortUrl) {
-    //   res.status(404).send({ message: "URL not Found!" });
-    // } else {
-    //   // Increment the clicks counter and save the changes
-    //   shortUrl.clicks++;
-    //   await shortUrl.save();
-    //   //Redirect to the original URL
-    //   res.redirect(shortUrl.fullUrl);
-    // }
     const shortUrl = req.params.id;
 
-    //Check if shortened URL already exists in cache
+    // Check if shortened URL already exists in cache
     const originalUrl = await client.get(shortUrl);
 
     if (originalUrl) {
-      // Update click count
-      await urlModel.findByIdAndUpdate(
-        originalUrl,
+      // Update click count in cache
+      await client.incr(`clicks:${shortUrl}`);
+
+      // Update click count in the database
+      const url = await urlModel.findOneAndUpdate(
         { shortUrl },
-        { $inc: { clicks: 1 } }
+        { $inc: { clicks: 1 } },
+        { new: true }
       );
+
       return res.redirect(originalUrl);
     } else {
-      const url = await urlModel.findById(shortUrl);
+      const url = await urlModel.findOne({ shortUrl });
       if (!url) {
         return res.status(404).json({ message: "Short Url not found" });
       }
 
-      //Store retrieved URL in cache
+      // Store retrieved URL in cache
       await client.set(shortUrl, url.fullUrl);
 
-      // Update click count
-      await urlModel.findByIdAndUpdate(shortUrl, { $inc: { clicks: 1 } });
+      // Update click count in both cache and database
+      await Promise.all([
+        client.set(`clicks:${shortUrl}`, 1),
+        urlModel.findOneAndUpdate(
+          { shortUrl },
+          { $inc: { clicks: 1 } },
+          { new: true }
+        ),
+      ]);
 
       return res.redirect(url.fullUrl);
     }

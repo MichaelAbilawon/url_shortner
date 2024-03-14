@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 // import { connect } from "http2";
 import shortUrl from "./routes/shortUrl";
 import cookieParser from "cookie-parser";
+import path from "path";
 
 const app = express();
 
@@ -30,7 +31,10 @@ app.use(express.urlencoded({ extended: true }));
 
 // Allow cross-origin requests (for testing purposes)
 app.use(cors());
-
+// Set EJS as the view engine
+app.set("view engine", "ejs");
+// The directory where EJS files are located
+app.set("views", path.join(__dirname, "views"));
 // Routes
 app.use("/shortUrl", shortUrl);
 app.get("/", (req, res) => {

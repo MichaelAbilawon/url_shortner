@@ -19,6 +19,16 @@ const linkHistorySchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  clicks: {
+    type: Number,
+    default: 0,
+  },
+  clickData: [
+    {
+      timestamp: { type: Date, default: Date.now },
+      referrer: String,
+    },
+  ],
 });
 
 // Export the model for use in other parts of the application

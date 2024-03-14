@@ -29,6 +29,6 @@ router.get("/shortUrl", limiter, getAllUrl); // Get a particular short URL
 router.get("/shortUrl/:id", handleRedirect, getUrl); //Get all URLs
 router.delete("/shortUrl/:id", deleteUrl); // Delete a URL
 router.get("/generate-qr/:url", generateQrCodeController); //Generate QR-code
-router.get("/analytics/:id", analyticsMiddleware); //Analytics
-router.get("/linkhistory", verifyTokenFromCookie, getLinkHistory); //
+router.get("/analytics/:id", verifyTokenFromCookie, analyticsMiddleware); //Analytics
+router.get("/linkhistory", verifyTokenFromCookie, getLinkHistory); //get the link history of a specific user
 export default router;
