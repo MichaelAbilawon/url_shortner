@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shortened URL</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS -->
+    <style>
+      /* Custom styles */
+      body {
+        background-color: #f8f9fa;
+        font-family: Arial, sans-serif;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #ffffff;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+      }
+
+      .url-info {
+        margin-bottom: 20px;
+      }
+
+      .long-url {
+        word-wrap: break-word;
+      }
+
+      .short-url {
+        word-wrap: break-word;
+        font-weight: bold;
+        color: #007bff;
+      }
+    </style>
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Shortened URL</title>
+        <!DOCTYPE html>
+        <html lang="en">
+          <head>
+            <meta charset="UTF-8" />
+            <meta
+              name="viewport"
+              content="width=device-width, initial-scale=1.0"
+            />
+            <title>Shortened URL</title>
+          </head>
+          <body>
+            <div class="container">
+              <h2 class="text-center mb-4">Shortened URL Details</h2>
+              <div class="url-info">
+                <h4>Original Long URL:</h4>
+                <p class="long-url"><%= fullUrl %></p>
+              </div>
+              <div class="url-info">
+                <h4>Shortened URL:</h4>
+                <p class="short-url"><%= shorturl %></p>
+              </div>
+              <div class="alert alert-info" role="alert">
+                <strong>Note:</strong> Copy the shortened URL above and share it
+                with others!
+              </div>
+            </div>
+          </body>
+        </html>
+      </head>
+    </html>
+  </head>
+</html>

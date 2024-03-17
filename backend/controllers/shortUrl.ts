@@ -61,27 +61,35 @@ export const createUrl = async (
       await client.set(alias, req.body.fullUrl);
 
       // Set expiration time for cached data (optional)
-      await client.expire(alias, 60 * 60 * 7); // Cache for 1 week
+      await client.expire(alias, 60 * 60 * 24 * 7); // Cache for 1 week
     }
 
     // Create the short URL
+    let shortUrl;
+    const linkShortUrl = alias || nanoid().substring(0, 10);
+    if (alias) {
+      shortUrl = `localhost:3001/shorturl/${alias}`;
+    } else {
+      shortUrl = `localhost:3001/shorturl/${linkShortUrl}`;
+    }
+    const shorturl =
+      "localhost:3001/shorturl/shorturl/" + alias || nanoid().substring(0, 10);
+
     const shortUrlData = {
       fullUrl,
       shortUrl: alias || nanoid().substring(0, 10),
       user: req.user?.id,
-
-      // user,
     };
     const newShortUrl = await urlModel.create(shortUrlData);
     // Insert record into link history database
     const linkHistoryData = {
       originalUrl: fullUrl,
-      shortenedUrl: alias,
+      shortenedUrl: linkShortUrl,
       userId: req.user?.id,
     };
     await historyModel.create(linkHistoryData);
-
-    res.status(201).send(newShortUrl);
+    res.render("urlcreated", { fullUrl, shorturl });
+    // res.status(201).send(newShortUrl);
   } catch (error) {
     const err = error as Error;
     console.error("Error creating short URL:", err);

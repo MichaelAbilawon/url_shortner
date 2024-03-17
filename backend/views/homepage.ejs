@@ -9,99 +9,218 @@
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       rel="stylesheet"
     />
+    <!-- Font Awesome CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
     <!-- Custom CSS -->
     <style>
-      /* Add your custom styles here */
+      /* Custom styles */
       body {
         background-color: #f8f9fa;
-      }
-
-      .container {
-        margin-top: 50px;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
       }
 
       .jumbotron {
         background-color: #343a40;
+        background-size: cover;
+        background-position: center;
         color: #ffffff;
+        padding: 1.8rem;
+        margin-bottom: 1rem; /* Adjusted margin */
+      }
+
+      .jumbotron h1 {
+        font-size: 3.5rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .jumbotron p {
+        font-size: 1.5rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .feature-icon {
+        font-size: 4rem;
+        color: #007bff;
+        margin-bottom: 1rem;
+      }
+
+      .feature-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #343a40;
+      }
+
+      .feature-description {
+        font-size: 1.2rem;
+        color: #6c757d;
+      }
+
+      .card {
+        border: none;
+        border-radius: 0;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .card-body {
+        padding: 2rem;
+      }
+
+      .btn-primary {
+        border-radius: 0;
+        background-color: #007bff;
+        border: none;
+      }
+
+      .btn-primary:hover {
+        background-color: #0056b3;
+      }
+
+      .footer {
+        background-color: #343a40;
+        color: #ffffff;
+        padding: 0.5rem 0; /* Adjusted padding */
+        text-align: center;
+        margin-top: auto;
+      }
+
+      .navbar-brand {
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+
+      .navbar-nav .nav-item .nav-link {
+        color: #ffffff;
+      }
+
+      .navbar-nav .nav-item .nav-link:hover {
+        color: #f8f9fa;
+      }
+
+      /* Statement animation */
+      @keyframes slideInLeft {
+        from {
+          transform: translateX(-100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      .statement {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #343a40;
+        text-align: center;
+        margin-bottom: 2rem;
+        animation: slideInLeft 1s forwards;
       }
     </style>
   </head>
 
   <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="#"><i class="fas fa-cut"></i> Scissors</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="shorturl/login">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="shorturl/register">Signup</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/shorturl/about">About</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Jumbotron -->
     <div class="jumbotron text-center">
-      <h1 class="display-4">Welcome to URL Shortener App</h1>
-      <p class="lead">
-        Shorten your long URLs easily and share them with others!
-      </p>
+      <h1 class="display-4">Welcome to Scissors</h1>
+      <p class="lead">Brief is the new black.</p>
     </div>
 
+    <!-- Statement Animation -->
+    <div class="statement">Shorten long URLs quickly and easily!</div>
+
+    <!-- Features Section -->
     <div class="container">
-      <div class="row">
-        <div class="col-md-6">
-          <h2>Login</h2>
-          <form>
-            <div class="form-group">
-              <label for="loginEmail">Email address</label>
-              <input
-                type="email"
-                class="form-control"
-                id="loginEmail"
-                aria-describedby="emailHelp"
-                placeholder="Enter email"
-              />
+      <div class="row justify-content-center">
+        <div class="col-md-4 mb-4">
+          <div class="card text-center">
+            <div class="card-body">
+              <i class="fas fa-link feature-icon"></i>
+              <h3 class="feature-title">Shorten URLs</h3>
+              <p class="feature-description">
+                Quickly shorten your long URLs into manageable links.
+              </p>
             </div>
-            <div class="form-group">
-              <label for="loginPassword">Password</label>
-              <input
-                type="password"
-                class="form-control"
-                id="loginPassword"
-                placeholder="Password"
-              />
-            </div>
-            <button type="submit" class="btn btn-primary">Login</button>
-          </form>
+          </div>
         </div>
-        <div class="col-md-6">
-          <h2>Sign Up</h2>
-          <form>
-            <div class="form-group">
-              <label for="signupName">Full Name</label>
-              <input
-                type="text"
-                class="form-control"
-                id="signupName"
-                placeholder="Enter your full name"
-              />
+        <div class="col-md-4 mb-4">
+          <div class="card text-center">
+            <div class="card-body">
+              <i class="fas fa-chart-line feature-icon"></i>
+              <h3 class="feature-title">Track Analytics</h3>
+              <p class="feature-description">
+                Keep track of your shortened URL analytics with detailed
+                insights.
+              </p>
             </div>
-            <div class="form-group">
-              <label for="signupEmail">Email address</label>
-              <input
-                type="email"
-                class="form-control"
-                id="signupEmail"
-                aria-describedby="emailHelp"
-                placeholder="Enter email"
-              />
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="card text-center">
+            <div class="card-body">
+              <i class="fas fa-qrcode feature-icon"></i>
+              <h3 class="feature-title">Generate QR Codes</h3>
+              <p class="feature-description">
+                Easily generate QR codes for your shortened URLs, making it
+                convenient for users to access them on mobile devices.
+              </p>
             </div>
-            <div class="form-group">
-              <label for="signupPassword">Password</label>
-              <input
-                type="password"
-                class="form-control"
-                id="signupPassword"
-                placeholder="Password"
-              />
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="card text-center">
+            <div class="card-body">
+              <i class="fas fa-cogs feature-icon"></i>
+              <h3 class="feature-title">Customize Links</h3>
+              <p class="feature-description">
+                Customize your shortened links to make them more meaningful.
+              </p>
             </div>
-            <button type="submit" class="btn btn-primary">Sign Up</button>
-          </form>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Bootstrap JS (optional, if you need JavaScript functionality) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Footer -->
+    <div class="footer">
+      <p>&copy; 2024 URL Shortener</p>
+    </div>
   </body>
 </html>

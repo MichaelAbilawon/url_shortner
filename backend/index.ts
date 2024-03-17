@@ -38,7 +38,10 @@ app.set("views", path.join(__dirname, "views"));
 // Routes
 app.use("/shortUrl", shortUrl);
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.render("homepage");
+});
+app.get("/generateqr", (req, res) => {
+  res.render("qrcode");
 });
 
 app.listen(3001, () => console.log("listening on port 3001"));

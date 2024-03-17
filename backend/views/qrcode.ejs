@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QR Code Generator</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <!-- Custom CSS -->
+    <style>
+      /* Custom styles */
+      body {
+        background-color: #f8f9fa;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      .jumbotron {
+        background-color: #343a40;
+        background-size: cover;
+        background-position: center;
+        color: #ffffff;
+        padding: 0.5rem;
+        margin-bottom: auto;
+      }
+
+      .jumbotron h1 {
+        font-size: 3.5rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .jumbotron p {
+        font-size: 1.5rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .feature-icon {
+        font-size: 4rem;
+        color: #007bff;
+        margin-bottom: 1rem;
+      }
+
+      .feature-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #343a40;
+      }
+
+      .feature-description {
+        font-size: 1.2rem;
+        color: #6c757d;
+      }
+
+      .card {
+        border: none;
+        border-radius: 0;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .card-body {
+        padding: 2rem;
+      }
+
+      .btn-primary {
+        border-radius: 0;
+        background-color: #007bff;
+        border: none;
+      }
+
+      .btn-primary:hover {
+        background-color: #0056b3;
+      }
+
+      .footer {
+        background-color: #343a40;
+        color: #ffffff;
+        padding: 1rem 0;
+        text-align: center;
+        margin-top: auto;
+      }
+
+      .navbar-brand {
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+
+      .navbar-nav .nav-item .nav-link {
+        color: #ffffff;
+      }
+
+      .navbar-nav .nav-item .nav-link:hover {
+        color: #f8f9fa;
+      }
+
+      #qrCode {
+        max-width: 300px;
+        height: auto;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="#">Scissors</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/shorturl/dashboard">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/shorturl/linkhistory">Link History</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/shorturl/logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Jumbotron -->
+    <div class="jumbotron text-center">
+      <h1 class="display-4"></h1>
+      <p class="lead">Generate QR code easily!</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+      <h2 class="text-center mb-4">QR Code Generator</h2>
+      <form id="qrForm">
+        <div class="form-group">
+          <label for="shortUrl">Short URL:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="shortUrl"
+            name="shortUrl"
+            placeholder="Enter your short URL"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Generate QR Code</button>
+      </form>
+      <div id="qrCodeContainer" class="mt-4">
+        <!-- QR code will be displayed here -->
+      </div>
+      <div id="downloadLink" class="mt-4">
+        <!-- Download link will be displayed here -->
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>&copy; 2024 URL Shortener</p>
+    </div>
+
+    <!-- Bootstrap JS (optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- QR Code Generator Script -->
+    <script>
+      // Function to generate QR code
+      async function generateQRCode(shortUrl) {
+        try {
+          const response = await fetch(
+            `/shorturl/generateqr/${encodeURIComponent(shortUrl)}`
+          );
+          const qrCodeBlob = await response.blob();
+
+          // Create a download link for the QR code
+          const downloadLink = document.createElement("a");
+          downloadLink.href = URL.createObjectURL(qrCodeBlob);
+          downloadLink.download = "qr-code.png";
+          downloadLink.textContent = "Download QR Code";
+          downloadLink.classList.add("btn", "btn-primary");
+
+          const qrCodeContainer = document.getElementById("qrCodeContainer");
+          qrCodeContainer.innerHTML = ""; // Clear previous QR code
+          qrCodeContainer.appendChild(downloadLink); // Append the download link
+
+          // Create an img element to display the QR code
+          const qrCodeImg = document.createElement("img");
+          qrCodeImg.src = URL.createObjectURL(qrCodeBlob);
+          qrCodeImg.alt = "QR Code";
+          qrCodeImg.id = "qrCode";
+
+          // Append the QR code image
+          qrCodeContainer.appendChild(qrCodeImg);
+
+          // Show the download link
+          document.getElementById("downloadLink").style.display = "block";
+        } catch (error) {
+          console.error("Error generating QR code:", error);
+        }
+      }
+
+      // Submit form and generate QR code on form submission
+      document
+        .getElementById("qrForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent default form submission
+          var shortUrl = document.getElementById("shortUrl").value;
+          generateQRCode(shortUrl); // Generate QR code
+        });
+    </script>
+  </body>
+</html>

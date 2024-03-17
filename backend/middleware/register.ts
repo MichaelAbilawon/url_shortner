@@ -32,7 +32,7 @@ export async function registerUser(
     //     expiresIn: "12h",
     //   }
     // );
-
+    res.render("successfulRegistration");
     return res.status(201).json({ message: "New user created" });
   } catch (error) {
     console.error(error);
@@ -40,7 +40,7 @@ export async function registerUser(
   }
 }
 
-router.post("/register", registerUser);
+// router.post("/register", registerUser);
 
 export default router;
 

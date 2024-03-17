@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { generateQrCode } from "../middleware/qrCodeGenerator";
 
 export async function generateQrCodeController(req: Request, res: Response) {
-  const urlToEncode = req.params.url;
+  const urlToEncode = "localhost:3001/shorturl/" + req.params.url;
   const size = (req.query.size as string) || "150x150"; // Default size is 150x150 if not provided
 
   if (!urlToEncode) return res.status(400).send({ error: "URL missing" });

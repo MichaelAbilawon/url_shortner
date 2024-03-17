@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <!-- Custom CSS -->
+    <style>
+      /* Custom styles */
+      body {
+        background-color: #f8f9fa;
+        font-family: Arial, sans-serif;
+        padding-top: 20px;
+        padding-bottom: 100px; /* Ensure space for the footer */
+      }
+      .container {
+        max-width: 960px;
+      }
+      .card {
+        border: none;
+        border-radius: 0;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      }
+      .card-body {
+        padding: 2rem;
+      }
+      .btn-primary {
+        border-radius: 0;
+        background-color: #007bff;
+        border: none;
+      }
+      .btn-primary:hover {
+        background-color: #0056b3;
+      }
+      .footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: #343a40;
+        color: #ffffff;
+        padding: 2rem 0;
+        text-align: center;
+      }
+      /* Updated styles */
+      .navbar-brand {
+        font-weight: bold;
+        font-size: 1.5rem;
+      }
+      .nav-item {
+        margin-right: 20px;
+      }
+      .nav-link {
+        font-size: 1.1rem;
+        color: #ffffff;
+        transition: color 0.3s;
+      }
+      .nav-link:hover {
+        color: #ffc107; /* Change to desired hover color */
+      }
+      .main-content {
+        margin-top: 40px;
+      }
+      .main-content h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #333333;
+        margin-bottom: 20px;
+      }
+      .main-content p {
+        font-size: 1.2rem;
+        color: #666666;
+      }
+      .feature-list {
+        list-style: none;
+        padding-left: 0;
+      }
+      .feature-list li {
+        margin-bottom: 15px;
+      }
+      .feature-list a {
+        font-size: 1.1rem;
+        color: #007bff;
+        transition: color 0.3s;
+      }
+      .feature-list a:hover {
+        color: #52c1c7;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">URL Shortener</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/shorturl/linkhistory">Link History</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/shorturl/createurl"
+              >Create a Short URL</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Settings</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/shorturl/logout">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container main-content">
+      <h1>Welcome to Your Dashboard</h1>
+      <p>Manage your shortened URLs and track analytics here.</p>
+      <ul class="feature-list">
+        <li><a href="/shorturl/createurl">Create Short URLs</a></li>
+        <li><a href="/shorturl/linkhistory">View Link History</a></li>
+        <li><a href="/generateqr">Generate QR code</a></li>
+        <li><a href="/shorturl/generate-qr">Delete a shorturl</a></li>
+        <li>
+          <a href="/shorturl/generate-qr">Go to a website via its shorturl</a>
+        </li>
+      </ul>
+      <!-- Add more content and components here as needed -->
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>&copy; 2024 URL Shortener</p>
+    </div>
+
+    <!-- Bootstrap JS (optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>
