@@ -1,6 +1,6 @@
 import express from "express";
 import { validateUrl } from "../middleware/validateUrl";
-import { handleRedirect } from "../middleware/shortUrl";
+import { handleRedirect } from "../middleware/redirect";
 import {
   createUrl,
   getAllUrl,
@@ -27,22 +27,16 @@ router.post(
   validateUrl,
   createUrl
 ); //shorten a url
-router.get("/shortUrl", limiter, getAllUrl); // Get all short URLs
-router.get("/shortUrl/:id", limiter, handleRedirect, getUrl); //Get a URL
+router.get("/shorturl", limiter, getAllUrl); // Get all short URLs
+router.get("/shorturl/:id", limiter, handleRedirect, getUrl); //Get a URL
 router.get(
   "/analytics/:id",
   limiter,
   verifyTokenFromCookie,
   analyticsMiddleware
 ); //Analytics
-router.delete("/shortUrl/:id", limiter, verifyTokenFromCookie, deleteUrl); // Delete a URL
+router.delete("/shorturl/:id", limiter, verifyTokenFromCookie, deleteUrl); // Delete a URL
 router.get("/generateqr/:url", limiter, generateQrCodeController); //Generate QR-code
-router.get(
-  "/analytics/:id",
-  limiter,
-  verifyTokenFromCookie,
-  analyticsMiddleware
-); //Analytics
 router.get("/linkhistory", limiter, verifyTokenFromCookie, getLinkHistory); //get the link history of a specific user
 export default router;
 
@@ -61,8 +55,8 @@ router.get("/createurl", (req, res) => {
   res.render("shortenurl");
 }); //shorten a long url
 
-router.get("/shortUrl/:id", (req, res) => {
-  res.render("getUrl");
+router.get("/geturl", (req, res) => {
+  res.render("geturl");
 }); //Go to a site through the short url
 
 router.get("/register", (req, res) => {
@@ -71,4 +65,8 @@ router.get("/register", (req, res) => {
 
 router.get("/about", (req, res) => {
   res.render("about");
-});
+}); // Go to the about page
+
+router.get("/analytics", (req, res) => {
+  res.render("analytics");
+}); // Go to the analytics page

@@ -39,7 +39,7 @@ export async function analyticsMiddleware(
       return res.status(403).json({ message: "Forbidden: Access denied" });
     }
 
-    return res.json({ clicks: shortUrl.clicks });
+    return res.json({ clicks: shortUrl.clickData });
   } catch (error) {
     // Handle database errors
     console.error(error);

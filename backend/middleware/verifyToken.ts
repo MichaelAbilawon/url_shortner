@@ -56,7 +56,8 @@ export const verifyTokenFromCookie = async (
     next(); // Call next() to proceed to the next middleware
   } catch (error) {
     if (error instanceof TokenExpiredError) {
-      res.status(401).json({ error: "Token expired" });
+      res.render("login");
+      // res.status(401).json({ error: "Token expired" });
     } else {
       console.error("Token verification error: ", error);
       res.status(401).json({ error: "Invalid Token" });

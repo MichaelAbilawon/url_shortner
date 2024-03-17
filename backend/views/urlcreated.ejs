@@ -17,9 +17,21 @@
         font-family: Arial, sans-serif;
       }
 
+      .header {
+        background-color: #343a40;
+        color: #ffffff;
+        padding: 10px 0;
+        text-align: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+      }
+
       .container {
         max-width: 600px;
-        margin: 50px auto;
+        margin: 100px auto;
         padding: 20px;
         background-color: #ffffff;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -39,42 +51,41 @@
         font-weight: bold;
         color: #007bff;
       }
+
+      .btn-generate-qr {
+        margin-top: 20px;
+      }
     </style>
-    <!DOCTYPE html>
-    <html lang="en">
-      <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Shortened URL</title>
-        <!DOCTYPE html>
-        <html lang="en">
-          <head>
-            <meta charset="UTF-8" />
-            <meta
-              name="viewport"
-              content="width=device-width, initial-scale=1.0"
-            />
-            <title>Shortened URL</title>
-          </head>
-          <body>
-            <div class="container">
-              <h2 class="text-center mb-4">Shortened URL Details</h2>
-              <div class="url-info">
-                <h4>Original Long URL:</h4>
-                <p class="long-url"><%= fullUrl %></p>
-              </div>
-              <div class="url-info">
-                <h4>Shortened URL:</h4>
-                <p class="short-url"><%= shorturl %></p>
-              </div>
-              <div class="alert alert-info" role="alert">
-                <strong>Note:</strong> Copy the shortened URL above and share it
-                with others!
-              </div>
-            </div>
-          </body>
-        </html>
-      </head>
-    </html>
   </head>
+  <body>
+    <div class="header">
+      <h1><i class="fas fa-cut"></i> Scissors</h1>
+      <p>Shorten long URLs quickly and easily</p>
+      <p><a href="/">Back to Home</a></p>
+    </div>
+    <div class="container">
+      <h2 class="text-center mb-4">Shortened URL Details</h2>
+      <div class="url-info">
+        <h4>Original Long URL:</h4>
+        <p class="long-url"><%= fullUrl %></p>
+      </div>
+      <div class="url-info">
+        <h4>Shortened URL:</h4>
+        <p class="short-url"><%= shortUrl %></p>
+        <a href="/generateqr" class="btn btn-primary btn-generate-qr"
+          >Generate QR Code</a
+        >
+      </div>
+      <div class="alert alert-info" role="alert">
+        <strong>Note:</strong> Copy the shortened URL above and share it with
+        others!
+      </div>
+    </div>
+
+    <!-- Bootstrap JS and Font Awesome JS (optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+  </body>
 </html>

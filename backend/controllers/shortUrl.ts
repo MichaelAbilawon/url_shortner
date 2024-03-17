@@ -68,12 +68,12 @@ export const createUrl = async (
     let shortUrl;
     const linkShortUrl = alias || nanoid().substring(0, 10);
     if (alias) {
-      shortUrl = `localhost:3001/shorturl/${alias}`;
+      shortUrl = `localhost:3001/shorturl/shorturl/${alias}`;
     } else {
-      shortUrl = `localhost:3001/shorturl/${linkShortUrl}`;
+      shortUrl = `localhost:3001/shorturl/shorturl/${linkShortUrl}`;
     }
-    const shorturl =
-      "localhost:3001/shorturl/shorturl/" + alias || nanoid().substring(0, 10);
+    // const shorturl =
+    //   "localhost:3001/shorturl/shorturl/" + alias || nanoid().substring(0, 10);
 
     const shortUrlData = {
       fullUrl,
@@ -88,7 +88,7 @@ export const createUrl = async (
       userId: req.user?.id,
     };
     await historyModel.create(linkHistoryData);
-    res.render("urlcreated", { fullUrl, shorturl });
+    res.render("urlcreated", { fullUrl, shortUrl });
     // res.status(201).send(newShortUrl);
   } catch (error) {
     const err = error as Error;

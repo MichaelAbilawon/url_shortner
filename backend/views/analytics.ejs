@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Get Full URL - Scissors</title>
+    <title>Get Your Short URL Analytics - Scissors</title>
     <!-- Bootstrap CSS -->
     <link
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -84,6 +84,11 @@
       .btn-primary:hover {
         background-color: #0056b3;
       }
+
+      #errorMessage {
+        color: red;
+        margin-top: 10px;
+      }
     </style>
   </head>
   <body>
@@ -91,32 +96,39 @@
       <h1><i class="fas fa-cut"></i> Scissors</h1>
     </div>
     <div class="container">
-      <h2>Get Full URL</h2>
-      <form action="/shorturl/shorturl/:id" method="POST">
+      <h2>Get Your Short URL Analytics</h2>
+      <form id="analyticsForm" method="get">
         <div class="form-group">
           <label for="shortUrl">Enter Short URL:</label>
           <input
             type="text"
-            id="shortUrl"
+            id="shortUrlInput"
             class="form-control"
-            name="shortUrl"
-            placeholder="Enter short URL..."
+            placeholder="Enter short URL or just the alias..."
             required
           />
         </div>
-        <button type="submit" class="btn btn-primary">Get Full URL</button>
+        <button type="submit" class="btn btn-primary">Get Analytics</button>
       </form>
       <div id="errorMessage" style="color: red; margin-top: 10px"></div>
     </div>
-
     <div class="footer">
       <p>&copy; 2024 Scissors - URL Shortener</p>
     </div>
-
     <!-- Bootstrap JS and Font Awesome JS (optional) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <!-- JavaScript for form submission -->
+    <script>
+      document
+        .getElementById("analyticsForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          const shortUrlInput = document.getElementById("shortUrlInput").value;
+          window.location.href = `/shorturl/analytics/${shortUrlInput}`;
+        });
+    </script>
   </body>
 </html>
