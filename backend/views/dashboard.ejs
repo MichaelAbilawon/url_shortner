@@ -20,55 +20,27 @@
       body {
         background-color: #f8f9fa;
         font-family: Arial, sans-serif;
-        padding-top: 20px;
-        padding-bottom: 100px;
       }
-      .container {
-        max-width: 960px;
-      }
-      .card {
-        border: none;
-        border-radius: 0;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-      }
-      .card-body {
-        padding: 2rem;
-      }
-      .btn-primary {
-        border-radius: 0;
-        background-color: #007bff;
-        border: none;
-      }
-      .btn-primary:hover {
-        background-color: #0056b3;
-      }
-      .footer {
-        position: fixed;
-        bottom: 0;
-        width: 100%;
+      .navbar {
         background-color: #343a40;
-        color: #ffffff;
-        padding: 2rem 0;
-        text-align: center;
       }
-      /* Updated styles */
       .navbar-brand {
         font-weight: bold;
         font-size: 1.5rem;
+        color: #ffffff;
       }
-      .nav-item {
-        margin-right: 20px;
+      .navbar-toggler-icon {
+        color: #ffffff;
       }
-      .nav-link {
-        font-size: 1.1rem;
+      .navbar-nav .nav-item .nav-link {
         color: #ffffff;
         transition: color 0.3s;
       }
-      .nav-link:hover {
+      .navbar-nav .nav-item .nav-link:hover {
         color: #ffc107;
       }
       .main-content {
-        margin-top: 40px;
+        margin-top: 50px;
       }
       .main-content h1 {
         font-size: 2.5rem;
@@ -79,27 +51,53 @@
       .main-content p {
         font-size: 1.2rem;
         color: #666666;
+        margin-bottom: 30px;
       }
       .feature-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-gap: 30px;
         list-style: none;
         padding-left: 0;
       }
       .feature-list li {
-        margin-bottom: 15px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        text-align: center;
+        transition: transform 0.3s ease-in-out;
+      }
+      .feature-list li:hover {
+        transform: translateY(-5px);
       }
       .feature-list a {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
         color: #007bff;
+        text-decoration: none;
         transition: color 0.3s;
       }
       .feature-list a:hover {
         color: #52c1c7;
       }
+      .footer {
+        background-color: #343a40;
+        color: #ffffff;
+        padding: 2rem 0;
+        text-align: center;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+      }
+      .footer p {
+        margin-bottom: 0;
+      }
     </style>
   </head>
   <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg">
       <a class="navbar-brand" href="#">Scissors</a>
       <button
         class="navbar-toggler"
@@ -137,14 +135,35 @@
       <h1>Welcome to Your Dashboard</h1>
       <p>Manage your shortened URLs and track analytics here.</p>
       <ul class="feature-list">
-        <li><a href="/shorturl/createurl">Create Short URLs</a></li>
-        <li><a href="/shorturl/linkhistory">View Link History</a></li>
-        <li><a href="/generateqr">Generate QR code for your short URL</a></li>
         <li>
-          <a href="/shorturl/analytics">Get the Analytics of your short URLs</a>
+          <a href="/shorturl/createurl">
+            <i class="fas fa-link"></i>
+            <p>Create Short URLs</p>
+          </a>
         </li>
         <li>
-          <a href="/shorturl/geturl">Go to a website via its shorturl</a>
+          <a href="/shorturl/linkhistory">
+            <i class="fas fa-history"></i>
+            <p>View Link History</p>
+          </a>
+        </li>
+        <li>
+          <a href="/generateqr">
+            <i class="fas fa-qrcode"></i>
+            <p>Generate QR code for your short URL</p>
+          </a>
+        </li>
+        <li>
+          <a href="/shorturl/analytics">
+            <i class="fas fa-chart-bar"></i>
+            <p>Get the Analytics of your short URLs</p>
+          </a>
+        </li>
+        <li>
+          <a href="/shorturl/geturl">
+            <i class="fas fa-external-link-alt"></i>
+            <p>Go to a website via its short URL</p>
+          </a>
         </li>
       </ul>
       <!-- Add more content and components here as needed -->

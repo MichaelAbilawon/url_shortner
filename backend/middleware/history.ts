@@ -12,7 +12,8 @@ export const getLinkHistory = async (req: Request, res: Response) => {
     const userLinkHistory = await historyModel.find({ userId });
 
     // Respond with the user's link history
-    res.status(200).json({ linkHistory: userLinkHistory });
+    res.render("linkhistory", { linkHistory: userLinkHistory });
+    // res.status(200).json({ linkHistory: userLinkHistory });
   } catch (error) {
     // Handle errors
     console.error("Error fetching link history:", error);

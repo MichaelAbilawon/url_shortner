@@ -41,7 +41,7 @@ export async function loginUser(req: Request, res: Response): Promise<void> {
         // Save the token to a cookie and send a response
         res.cookie("token", token, { httpOnly: true });
         // res.status(200).json({ message: "Login successful" });
-        //Take the user to his homepage
+        //Take the user to the dashboard
         res.render("dashboard", { user: user.email });
 
         console.log("Login successful");

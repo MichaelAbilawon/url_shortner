@@ -38,8 +38,14 @@ export async function analyticsMiddleware(
     if (shortUrl.user?.toString() !== userId) {
       return res.status(403).json({ message: "Forbidden: Access denied" });
     }
+    // Render the analytics page with data
+    res.render("viewanalytics", {
+      id: shortCode,
+      clickData: shortUrl.clickData,
+      clicks: shortUrl.clicks,
+    });
 
-    return res.json({ clicks: shortUrl.clickData });
+    // return res.json({ clicks: shortUrl.clickData });
   } catch (error) {
     // Handle database errors
     console.error(error);

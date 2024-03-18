@@ -9,7 +9,7 @@ import {
 } from "../controllers/shortUrl";
 import { analyticsMiddleware } from "../controllers/analytics";
 import { generateQrCodeController } from "../controllers/qrCodeController";
-import register from "../middleware/register";
+import registerUser from "../middleware/register";
 import { loginUser } from "../middleware/login";
 import { verifyTokenFromCookie } from "../middleware/verifyToken";
 import limiter from "../middleware/rate";
@@ -17,7 +17,7 @@ import { getLinkHistory } from "../middleware/history";
 import { logoutHandler } from "../middleware/logout";
 const router = express.Router();
 
-router.post("/register", register); //register a new user
+router.post("/register", registerUser); //register a new user
 router.post("/login", loginUser); //login a user
 router.post("/logout", logoutHandler); //logout a user
 router.post(
@@ -28,14 +28,14 @@ router.post(
   createUrl
 ); //shorten a url
 router.get("/shorturl", limiter, getAllUrl); // Get all short URLs
-router.get("/shorturl/:id", limiter, handleRedirect, getUrl); //Get a URL
+router.get("/shorturl/:id", limiter, handleRedirect, getUrl); //Get a short URL
 router.get(
   "/analytics/:id",
   limiter,
   verifyTokenFromCookie,
   analyticsMiddleware
 ); //Analytics
-router.delete("/shorturl/:id", limiter, verifyTokenFromCookie, deleteUrl); // Delete a URL
+router.delete("/shorturl/:id", limiter, verifyTokenFromCookie, deleteUrl); // Delete a short URL
 router.get("/generateqr/:url", limiter, generateQrCodeController); //Generate QR-code
 router.get("/linkhistory", limiter, verifyTokenFromCookie, getLinkHistory); //get the link history of a specific user
 export default router;
@@ -61,12 +61,16 @@ router.get("/geturl", (req, res) => {
 
 router.get("/register", (req, res) => {
   res.render("register");
-}); //Go to a site through the short url
+}); //Register a new user
 
 router.get("/about", (req, res) => {
   res.render("about");
 }); // Go to the about page
 
 router.get("/analytics", (req, res) => {
-  res.render("analytics");
+  res.render("getanalytics");
+}); // Go to the analytics page
+
+router.get("/linkhistory", (req, res) => {
+  res.render("linkhistory");
 }); // Go to the analytics page

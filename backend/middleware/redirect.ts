@@ -16,6 +16,13 @@ export async function handleRedirect(
     // If the URL is not found in the database, send a 404 error
     return res.status(404).send("URL not found");
   }
+  await Promise.all([
+    urlModel.findOneAndUpdate(
+      { shortUrl },
+      { $inc: { clicks: 1 } },
+      { new: true }
+    ),
+  ]);
 
   // Log the click data
   const clickData = {
