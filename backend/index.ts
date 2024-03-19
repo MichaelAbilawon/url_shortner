@@ -6,12 +6,16 @@ import mongoose from "mongoose";
 import shortUrl from "./routes/shortUrl";
 import cookieParser from "cookie-parser";
 import path from "path";
-
+import http from "http";
 const app = express();
 
 // Load environment variables from .env file
 dotenv.config();
+const server = http.createServer(app);
 
+// Configure server timeouts
+server.keepAliveTimeout = 120000; // 120 seconds
+server.headersTimeout = 120000; // 120 seconds
 // Connect to MongoDB database using Mongoose
 async function connectToDatabase() {
   try {

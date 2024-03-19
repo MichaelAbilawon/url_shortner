@@ -33,15 +33,13 @@
         z-index: 1000;
       }
 
-      .footer {
-        background-color: #343a40;
+      .navbar-nav .nav-item .nav-link {
         color: #ffffff;
-        padding: 10px 0;
-        text-align: center;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
+        margin-right: 20px;
+      }
+
+      .navbar-nav .nav-item .nav-link:hover {
+        color: #ffc107;
       }
 
       .container {
@@ -69,6 +67,19 @@
         border-radius: 5px;
       }
 
+      .footer {
+        background-color: #343a40;
+        color: #ffffff;
+        padding: 2rem 0;
+        text-align: center;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+      }
+      .footer p {
+        margin-bottom: 0;
+      }
       .btn-primary {
         display: block;
         width: 100%;
@@ -94,6 +105,22 @@
   <body>
     <div class="header">
       <h1><i class="fas fa-cut"></i> Scissors</h1>
+      <nav class="navbar navbar-expand-lg">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/shorturl/dashboard">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/shorturl/createurl">Create Short URL</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/shorturl/linkhistory">Link History</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/shorturl/logout">Logout</a>
+          </li>
+        </ul>
+      </nav>
     </div>
     <div class="container">
       <h2>Get Your Short URL Analytics</h2>

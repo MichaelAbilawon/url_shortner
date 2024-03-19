@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
     <title>URL Shortener</title>
     <!-- Bootstrap CSS -->
     <link
@@ -23,6 +26,8 @@
         display: flex;
         flex-direction: column;
         min-height: 100vh;
+        margin: 0;
+        padding: 0;
       }
 
       .jumbotron {
@@ -31,7 +36,7 @@
         background-position: center;
         color: #ffffff;
         padding: 1.8rem;
-        margin-bottom: 1rem; /* Adjusted margin */
+        margin-bottom: 1rem;
       }
 
       .jumbotron h1 {
@@ -84,7 +89,7 @@
       .footer {
         background-color: #343a40;
         color: #ffffff;
-        padding: 0.5rem 0; /* Adjusted padding */
+        padding: 0.5rem 0;
         text-align: center;
         margin-top: auto;
       }
@@ -92,6 +97,10 @@
       .navbar-brand {
         font-size: 1.5rem;
         font-weight: bold;
+      }
+
+      .navbar-toggler {
+        border: none;
       }
 
       .navbar-nav .nav-item .nav-link {
@@ -220,7 +229,13 @@
 
     <!-- Footer -->
     <div class="footer">
-      <p>&copy; 2024 URL Shortener</p>
+      <p>&copy; 2024 Scissors</p>
     </div>
+
+    <!-- Bootstrap JS and Font Awesome JS (optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
   </body>
 </html>
