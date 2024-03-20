@@ -89,19 +89,24 @@
         margin-top: auto;
       }
 
-      .navbar-brand {
-        font-size: 1.5rem;
-        font-weight: bold;
+      .navbar {
+        background-color: #343a40;
       }
-
-      .navbar-nav .nav-item .nav-link {
+      .navbar-brand {
+        font-weight: bold;
+        font-size: 1.5rem;
         color: #ffffff;
       }
-
-      .navbar-nav .nav-item .nav-link:hover {
-        color: #f8f9fa;
+      .navbar-toggler-icon {
+        color: #ffffff;
       }
-
+      .navbar-nav .nav-item .nav-link {
+        color: #ffffff;
+        transition: color 0.3s;
+      }
+      .navbar-nav .nav-item .nav-link:hover {
+        color: #ffc107;
+      }
       #qrCode {
         max-width: 300px;
         height: auto;
@@ -142,10 +147,10 @@
     </nav>
 
     <!-- Jumbotron -->
-    <div class="jumbotron text-center">
+    <!-- <div class="jumbotron text-center">
       <h1 class="display-4"></h1>
       <p class="lead">Generate QR code easily!</p>
-    </div>
+    </div> -->
 
     <!-- Main Content -->
     <div class="container">

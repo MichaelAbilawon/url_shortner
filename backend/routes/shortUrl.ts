@@ -28,7 +28,7 @@ router.post(
   createUrl
 ); //shorten a url
 router.get("/shorturl", limiter, getAllUrl); // Get all short URLs
-router.get("/shorturl/:id", limiter, handleRedirect, getUrl); //Get a short URL
+router.get("/shorturl/:id", limiter, handleRedirect, getUrl); //Go to a website via its short URL
 router.get(
   "/analytics/:id",
   limiter,

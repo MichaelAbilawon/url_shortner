@@ -60,7 +60,8 @@ export const verifyTokenFromCookie = async (
       // res.status(401).json({ error: "Token expired" });
     } else {
       console.error("Token verification error: ", error);
-      res.status(401).json({ error: "Invalid Token" });
+      // res.status(401).json({ error: "Invalid Token" });
+      res.status(401).render("error", { errorMessage: "Invalid Token" });
     }
   }
 };

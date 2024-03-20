@@ -20,7 +20,10 @@ export async function loginUser(req: Request, res: Response): Promise<void> {
       email: req.body.email,
     });
     if (!user) {
-      res.status(400).json({ error: "Invalid email or password" });
+      // res.status(400).json({ error: "Invalid email or password" });
+      res
+        .status(400)
+        .render("error", { errorMessage: "Invalid Email or Password" });
     } else {
       // Check if password is correct
       const validPass: boolean = bcrypt.compareSync(
@@ -28,7 +31,10 @@ export async function loginUser(req: Request, res: Response): Promise<void> {
         user.password
       );
       if (!validPass) {
-        res.status(400).json({ error: "Invalid email or password" });
+        // res.status(400).json({ error: "Invalid email or password" });
+        res
+          .status(400)
+          .render("error", { errorMessage: "Invalid Email or password" });
       } else {
         // Generate JWT
         const token: string = jwt.sign(
@@ -48,6 +54,7 @@ export async function loginUser(req: Request, res: Response): Promise<void> {
       }
     }
   } catch (error: any) {
-    res.status(500).json({ error: error.message });
+    // res.status(500).json({ error: error.message });
+    res.status(500).render("error", { errorMessage: "Internal Server Error" });
   }
 }

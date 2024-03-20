@@ -28,28 +28,40 @@
         background-color: #343a40;
         color: #ffffff;
         padding: 10px 0;
-        text-align: center;
+        text-align: left; /* Align text to left */
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
         z-index: 1000;
+        display: flex; /* Use flexbox for layout */
+        align-items: center; /* Center vertically */
+        padding-left: 20px; /* Add left padding */
       }
 
-      .footer {
-        background-color: #343a40;
+      .header h1 {
+        margin-bottom: 0; /* Remove margin bottom for h1 */
+      }
+
+      .header i {
+        margin-right: 10px; /* Add margin between icon and text */
+      }
+
+      .nav {
+        margin-left: auto; /* Move nav items to the right */
+        margin-right: 20px; /* Add right margin to nav items */
+      }
+      .navbar-nav .nav-item .nav-link {
         color: #ffffff;
-        padding: 10px 0;
-        text-align: center;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
+        transition: color 0.3s;
+      }
+      .navbar-nav .nav-item .nav-link:hover {
+        color: #ffc107;
       }
 
       .container {
         max-width: 600px;
-        margin: 100px auto;
+        margin: 150px auto; /* Adjust top margin to center more accurately */
         padding: 20px;
         background-color: #ffffff;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -68,6 +80,20 @@
         border-radius: 0;
       }
 
+      .footer {
+        background-color: #343a40;
+        color: #ffffff;
+        padding: 1rem 0;
+        text-align: center;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+      }
+      .footer p {
+        margin-bottom: 0;
+      }
+
       .btn-primary {
         border-radius: 0;
         background-color: #007bff;
@@ -82,6 +108,15 @@
   <body>
     <div class="header">
       <h1><i class="fas fa-cut"></i> Scissors</h1>
+      <ul class="nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/shorturl/dashboard">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/shorturl/logout">Logout</a>
+          <!-- Add your other item -->
+        </li>
+      </ul>
     </div>
     <div class="container">
       <h2 class="text-center mb-4">Shorten Your URL</h2>

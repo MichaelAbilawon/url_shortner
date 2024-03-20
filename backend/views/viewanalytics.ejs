@@ -21,16 +21,35 @@
         background-color: #f8f9fa;
       }
 
-      .header {
+      /* .header {
         background-color: #343a40;
         color: #ffffff;
         padding: 10px 0;
         text-align: center;
-        position: fixed;
-        top: 0;
+        /* position: fixed; */
+      /* top: 0;
         left: 0;
         right: 0;
         z-index: 1000;
+      } */
+
+      .navbar {
+        background-color: #343a40;
+      }
+      .navbar-brand {
+        font-weight: bold;
+        font-size: 1.5rem;
+        color: #ffffff;
+      }
+      .navbar-toggler-icon {
+        color: #ffffff;
+      }
+      .navbar-nav .nav-item .nav-link {
+        color: #ffffff;
+        transition: color 0.3s;
+      }
+      .navbar-nav .nav-item .nav-link:hover {
+        color: #ffc107;
       }
 
       .container {
@@ -60,37 +79,55 @@
         color: #ffffff;
         padding: 10px 0;
         text-align: center;
-      }
-      .navbar-nav .nav-item .nav-link {
-        color: #ffffff;
-        margin-right: 20px;
+        margin-top: 20px; /* Added margin-top for better spacing */
       }
 
-      .navbar-nav .nav-item .nav-link:hover {
-        color: #ffc107;
+      .pagination {
+        justify-content: center;
+        margin-top: 20px;
+      }
+
+      .page-item.active .page-link {
+        background-color: #343a40;
+        border-color: #343a40;
+      }
+
+      .page-link {
+        color: #343a40;
       }
     </style>
   </head>
   <body>
-    <div class="header">
-      <a class="navbar-brand" href="#"><i class="fas fa-cut"></i> Scissors</a>
-      <nav class="navbar navbar-expand-lg">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+      <a class="navbar-brand" href="#">Scissors</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="/shorturl/dashboard">Dashboard</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/shorturl/createurl">Create Short URL</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="/shorturl/linkhistory">Link History</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/shorturl/createurl"
+              >Create a Short URL</a
+            >
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/shorturl/logout">Logout</a>
           </li>
         </ul>
-      </nav>
-    </div>
+      </div>
+    </nav>
     <div class="container">
       <h2>Short URL Analytics</h2>
 
@@ -108,6 +145,38 @@
         </div>
         <% } %>
       </div>
+
+      <!-- Pagination -->
+      <nav aria-label="Page navigation">
+        <ul class="pagination">
+          <% if (currentPage > 1) { %>
+          <li class="page-item">
+            <a
+              class="page-link"
+              href="?page=<%= currentPage - 1 %>"
+              aria-label="Previous"
+            >
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <% } %> <% for (let page = 1; page <= totalPages; page++) { %>
+          <li class="page-item <%= page === currentPage ? 'active' : '' %>">
+            <a class="page-link" href="?page=<%= page %>"><%= page %></a>
+          </li>
+          <% } %> <% if (currentPage < totalPages) { %>
+          <li class="page-item">
+            <a
+              class="page-link"
+              href="?page=<%= currentPage + 1 %>"
+              aria-label="Next"
+            >
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+          <% } %>
+        </ul>
+      </nav>
+      <!-- End Pagination -->
     </div>
     <div class="footer">
       <p>&copy; 2024 Scissors - URL Shortener</p>

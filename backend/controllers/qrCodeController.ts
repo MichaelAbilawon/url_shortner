@@ -20,6 +20,9 @@ export async function generateQrCodeController(req: Request, res: Response) {
     res.send(Buffer.from(qrCodeBase64, "base64"));
   } catch (error) {
     console.error("Error generating QR code:", error);
-    res.status(500).json({ error: "Failed to generate QR code" });
+    // res.status(500).json({ error: "Failed to generate QR code" });
+    res
+      .status(500)
+      .render("error", { errorMessage: "Failed to generate QR code" });
   }
 }

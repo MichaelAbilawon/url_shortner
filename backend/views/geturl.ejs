@@ -19,34 +19,53 @@
       body {
         font-family: Arial, sans-serif;
         background-color: #f8f9fa;
+        margin-top: 60px; /* Adjust margin to accommodate fixed header */
       }
 
       .header {
         background-color: #343a40;
         color: #ffffff;
         padding: 10px 0;
-        text-align: center;
+        text-align: left; /* Align text to left */
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
         z-index: 1000;
+        display: flex; /* Use flexbox for layout */
+        align-items: center; /* Center vertically */
+        padding-left: 20px; /* Add left padding */
       }
 
-      .footer {
+      .header h1 {
+        margin-bottom: 0; /* Remove margin bottom for h1 */
+      }
+
+      .header i {
+        margin-right: 10px; /* Add margin between icon and text */
+      }
+      .navbar {
         background-color: #343a40;
+      }
+      .navbar-brand {
+        font-weight: bold;
+        font-size: 1.5rem;
         color: #ffffff;
-        padding: 10px 0;
-        text-align: center;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
+      }
+      .navbar-toggler-icon {
+        color: #ffffff;
+      }
+      .navbar-nav .nav-item .nav-link {
+        color: #ffffff;
+        transition: color 0.3s;
+      }
+      .navbar-nav .nav-item .nav-link:hover {
+        color: #ffc107;
       }
 
       .container {
         max-width: 500px;
-        margin: 150px auto;
+        margin: 100px auto; /* Adjust margin to center content below fixed header */
         padding: 20px;
         background-color: #ffffff;
         border-radius: 5px;
@@ -81,6 +100,20 @@
         cursor: pointer;
       }
 
+      .footer {
+        background-color: #343a40;
+        color: #ffffff;
+        padding: 1rem 0;
+        text-align: center;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+      }
+      .footer p {
+        margin-bottom: 0;
+      }
+
       .btn-primary:hover {
         background-color: #0056b3;
       }
@@ -89,22 +122,31 @@
   <body>
     <div class="header">
       <h1><i class="fas fa-cut"></i> Scissors</h1>
+      <ul class="nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/shorturl/dashboard">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/shorturl/logout">Logout</a>
+          <!-- Add your other item -->
+        </li>
+      </ul>
     </div>
     <div class="container">
       <h2>Get Full URL</h2>
-      <form action="/shorturl/:id" method="POST">
+      <form id="getUrlForm" method="get">
         <div class="form-group">
           <label for="shortUrl">Enter Short URL:</label>
           <input
             type="text"
-            id="shortUrl"
+            id="shortUrlInput"
             class="form-control"
             name="shortUrl"
-            placeholder="Enter short URL..."
+            placeholder="Enter only the alias..."
             required
           />
         </div>
-        <button type="submit" class="btn btn-primary">Get Full URL</button>
+        <button type="submit" class="btn btn-primary">Go to Site</button>
       </form>
       <div id="errorMessage" style="color: red; margin-top: 10px"></div>
     </div>
@@ -117,6 +159,16 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+
+    <!-- JavaScript for form submission -->
+    <script>
+      document
+        .getElementById("getUrlForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          const shortUrlInput = document.getElementById("shortUrlInput").value;
+          window.location.href = `/shorturl/shorturl/${shortUrlInput}`;
+        });
+    </script>
   </body>
 </html>

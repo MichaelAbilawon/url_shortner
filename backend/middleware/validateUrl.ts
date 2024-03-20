@@ -12,7 +12,8 @@ export const validateUrl = (
   // Check if the URL is valid
   if (!validUrl.isUri(fullUrl)) {
     // If not valid, send a response with a 400 status code
-    return res.status(400).json({ message: "Invalid URL" });
+    // return res.status(400).json({ message: "Invalid URL" });
+    return res.status(400).render("error", { errorMessage: "Invalid URL" });
   }
 
   // If the URL is valid, proceed to the next middleware or route handler
