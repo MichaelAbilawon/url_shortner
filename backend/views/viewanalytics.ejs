@@ -77,11 +77,16 @@
       .footer {
         background-color: #343a40;
         color: #ffffff;
-        padding: 10px 0;
+        padding: 1rem 0;
         text-align: center;
-        margin-top: 20px; /* Added margin-top for better spacing */
+        position: relative;
+        bottom: 10;
+        left: 0;
+        width: 100%;
       }
-
+      .footer p {
+        margin-bottom: 0;
+      }
       .pagination {
         justify-content: center;
         margin-top: 20px;
@@ -114,6 +119,10 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/shorturl/dashboard">Dashboard</a>
+          </li>
+
           <li class="nav-item">
             <a class="nav-link" href="/shorturl/linkhistory">Link History</a>
           </li>
