@@ -15,21 +15,30 @@
       body {
         background-color: #f8f9fa;
         font-family: Arial, sans-serif;
+        margin-bottom: 100px; /* Adjusted margin for the footer */
+      }
+
+      .navbar-brand {
+        font-size: 1.2rem; /* Adjusted font size */
+      }
+
+      .navbar-nav .nav-item .nav-link {
+        font-size: 1rem; /* Adjusted font size */
       }
 
       .jumbotron {
         background-color: #343a40;
         color: #ffffff;
-        padding: 4rem 2rem;
+        padding: 2rem 1rem; /* Adjusted padding */
         margin-bottom: 0;
       }
 
       .jumbotron h1 {
-        font-size: 2.5rem;
+        font-size: 2rem; /* Adjusted font size */
       }
 
       .jumbotron p {
-        font-size: 1.2rem;
+        font-size: 1rem; /* Adjusted font size */
       }
 
       .card {
@@ -63,22 +72,15 @@
         background-color: #0056b3;
       }
 
-      .navbar-brand {
-        font-size: 1.5rem;
-      }
-
-      .navbar-nav {
-        font-size: 1.2rem;
-      }
-
       .footer {
         position: fixed;
         bottom: 0;
         width: 100%;
         background-color: #343a40;
         color: #ffffff;
-        padding: 2rem 0;
+        padding: 1rem 0; /* Adjusted padding */
         text-align: center;
+        z-index: 1000; /* Added z-index to ensure it stays on top */
       }
     </style>
   </head>
@@ -141,7 +143,7 @@
     <!-- Footer -->
     <div class="footer">
       <p>&copy; 2024 URL Shortener</p>
-    </footer>
+    </div>
 
     <!-- Bootstrap JS (optional) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

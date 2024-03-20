@@ -41,7 +41,12 @@
         text-overflow: ellipsis; /* Show ellipsis for overflowing text */
       }
       .table td.short-url {
-        max-width: 120px; /* Limit the width of the short URL column */
+        /* max-width: 320px; /* Limit the width of the short URL column */
+        overflow: hidden;
+        /* text-overflow: ellipsis; Show ellipsis for overflowing text */
+      }
+      .table td.created-at {
+        max-width: 300px; /* Limit the width of the long URL column */
         overflow: hidden;
         text-overflow: ellipsis; /* Show ellipsis for overflowing text */
       }
@@ -50,7 +55,9 @@
   <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg">
-      <a class="navbar-brand" href="#">Scissors</a>
+      <a class="navbar-brand" href="/shorturl/dashboard"
+        ><i class="fas fa-cut"></i> Scissors</a
+      >
       <button
         class="navbar-toggler"
         type="button"
@@ -96,7 +103,7 @@
               <td><%= index + 1 %></td>
               <td class="long-url"><%= link.originalUrl %></td>
               <td class="short-url"><%= link.shortenedUrl %></td>
-              <td><%= link.createdAt %></td>
+              <td class="created-at"><%= link.createdAt %></td>
             </tr>
             <% }); %>
           </tbody>

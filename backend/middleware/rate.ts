@@ -4,7 +4,7 @@ import { RequestHandler } from "express";
 // Define rate limiter middleware
 const limiter: RequestHandler = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour window
-  max: 1000, // Allow 1000 requests per hour for authenticated users
+  max: 5000, // Allow 10000 requests per hour for authenticated users
   keyGenerator: (req) => {
     const user = req.user;
     return user ? user.id : "anonymous" + req.ip;

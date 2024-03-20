@@ -68,9 +68,9 @@ export const createUrl = async (
     let shortUrl;
     const linkShortUrl = alias || nanoid().substring(0, 10);
     if (alias) {
-      shortUrl = `localhost:3001/shorturl/shorturl/${alias}`;
+      shortUrl = `https://scissors-brief.onrender.com/shorturl/shorturl/${alias}`;
     } else {
-      shortUrl = `localhost:3001/shorturl/shorturl/${linkShortUrl}`;
+      shortUrl = `https://scissors-brief.onrender.com/shorturl/shorturl/${linkShortUrl}`;
     }
     // const shorturl =
     //   "localhost:3001/shorturl/shorturl/" + alias || nanoid().substring(0, 10);
@@ -84,7 +84,8 @@ export const createUrl = async (
     // Insert record into link history database
     const linkHistoryData = {
       originalUrl: fullUrl,
-      shortenedUrl: linkShortUrl,
+      shortenedUrl:
+        "https://scissors-brief.onrender.com/shorturl/shorturl/" + linkShortUrl,
       userId: req.user?.id,
     };
     await historyModel.create(linkHistoryData);

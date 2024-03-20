@@ -55,13 +55,20 @@
       .btn-generate-qr {
         margin-top: 20px;
       }
+
+      /* Custom styles for buttons */
+      .btn-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
     </style>
   </head>
   <body>
     <div class="header">
       <h1><i class="fas fa-cut"></i> Scissors</h1>
       <p>Shorten long URLs quickly and easily</p>
-      <p><a href="/">Back to Home</a></p>
+      <p><a href="/shorturl/dashboard">Back to Dashboard</a></p>
     </div>
     <div class="container">
       <h2 class="text-center mb-4">Shortened URL Details</h2>
@@ -71,10 +78,13 @@
       </div>
       <div class="url-info">
         <h4>Shortened URL:</h4>
-        <p class="short-url"><%= shortUrl %></p>
-        <a href="/generateqr" class="btn btn-primary btn-generate-qr"
-          >Generate QR Code</a
-        >
+        <p class="short-url" id="shortenedUrl"><%= shortUrl %></p>
+        <div class="btn-container">
+          <button class="btn btn-primary btn-copy-url">Copy URL</button>
+          <a href="/generateqr" class="btn btn-primary btn-generate-qr"
+            >Generate QR Code</a
+          >
+        </div>
       </div>
       <div class="alert alert-info" role="alert">
         <strong>Note:</strong> Copy the shortened URL above and share it with
@@ -87,5 +97,32 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <!-- Custom JavaScript for Copy Button -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const copyButton = document.querySelector(".btn-copy-url");
+        const shortenedUrl = document.getElementById("shortenedUrl");
+
+        copyButton.addEventListener("click", () => {
+          // Create a textarea element to hold the URL
+          const textarea = document.createElement("textarea");
+          textarea.value = shortenedUrl.textContent;
+          document.body.appendChild(textarea);
+
+          // Select the URL text within the textarea
+          textarea.select();
+          textarea.setSelectionRange(0, 99999); // For mobile devices
+
+          // Copy the URL to the clipboard
+          document.execCommand("copy");
+
+          // Remove the temporary textarea
+          document.body.removeChild(textarea);
+
+          // Alert the user that the URL has been copied
+          alert("Shortened URL copied to clipboard!");
+        });
+      });
+    </script>
   </body>
 </html>

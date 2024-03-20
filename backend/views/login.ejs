@@ -21,9 +21,20 @@
       }
 
       .navbar-brand {
-        font-size: 2rem;
+        font-size: 1.5rem;
         font-weight: bold;
-        margin-top: -10px; /* Adjust the margin-top to move the logo higher */
+      }
+
+      .navbar-toggler {
+        border: none;
+      }
+
+      .navbar-nav .nav-item .nav-link {
+        color: #ffffff;
+      }
+
+      .navbar-nav .nav-item .nav-link:hover {
+        color: #f8f9fa;
       }
 
       .container {
@@ -62,6 +73,26 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
         <a class="navbar-brand" href="#"><i class="fas fa-cut"></i> Scissors</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+              <a class="nav-link" href="/shorturl/register">Signup</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/shorturl/about">About</a>
+            </li>
+          </ul>
+        </div>
       </div>
     </nav>
 

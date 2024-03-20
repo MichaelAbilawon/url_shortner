@@ -4,10 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export async function generateQrCodeController(req: Request, res: Response) {
-  const urlToEncode =
-    (process.env.RENDER_LINK as string) +
-    "/shorturl/shorturl/" +
-    req.params.url;
+  const urlToEncode = req.params.url;
   const size = (req.query.size as string) || "150x150"; // Default size is 150x150 if not provided
 
   if (!urlToEncode) return res.status(400).send({ error: "URL missing" });
