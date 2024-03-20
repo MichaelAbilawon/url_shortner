@@ -68,7 +68,6 @@ export async function registerUser(req: Request, res: Response): Promise<void> {
         password: hashedPassword,
       });
       await newUser.save();
-      // res.status(201).json({ message: "New user created" });
       res.render("successfulRegistration");
     }
   } catch (error) {
