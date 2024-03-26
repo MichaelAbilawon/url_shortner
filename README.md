@@ -33,4 +33,4 @@ Scissor is a URL shortening service built with Node.js and TypeScript. It allows
 3. Set up environment variables:
 
 - Create a '.env' file in the root directory
-- Define enviroment variablessuch as database connection string, API keys, etc.
+- Define enviroment variables such as database connection string, API keys, etc.
