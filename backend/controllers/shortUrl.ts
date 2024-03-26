@@ -94,9 +94,10 @@ export const createUrl = async (
   } catch (error) {
     const err = error as Error;
     console.error("Error creating short URL:", err);
-    res
-      .status(500)
-      .send({ message: "Something went wrong!", error: err.message });
+    // res
+    //   .status(500)
+    //   .send({ message: "Something went wrong!", error: err.message });
+    res.status(500).render("error", { errorMessage: err.message });
   }
 };
 

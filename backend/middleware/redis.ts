@@ -1,6 +1,6 @@
 import redis, { createClient } from "redis";
 import { Request, Response, NextFunction } from "express";
-// const redisPort = 6379;
+const redisPort = 6379;
 
 export let isConnected = false;
 const client = createClient();
